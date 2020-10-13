@@ -41,6 +41,7 @@ install:
   - ./configure
   - make
   - sudo make install
+  - cd ..
 
 script:
   - go test -v
