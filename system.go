@@ -34,10 +34,10 @@ func (s *System) Update() error {
 	return nil
 }
 
-func (s *System) Input() input.Interface {
+func (s *System) Input() input.Port {
 	return s.input
 }
 
-func (s *System) Graphics() graphics.Interface {
+func (s *System) Graphics() graphics.Port {
 	return s.graphics
 }

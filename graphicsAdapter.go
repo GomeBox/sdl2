@@ -5,7 +5,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-var _ graphics.Interface = (*GraphicsAdapter)(nil)
+var _ graphics.Port = (*GraphicsAdapter)(nil)
 
 type GraphicsAdapter struct {
 	window   *sdl.Window

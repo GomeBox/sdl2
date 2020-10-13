@@ -4,7 +4,7 @@ import (
 	"github.com/GomeBox/gome/adapters/input"
 )
 
-var _ input.Interface = (*InputAdapter)(nil)
+var _ input.Port = (*InputAdapter)(nil)
 
 type InputAdapter struct {
 }
