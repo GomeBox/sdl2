@@ -20,7 +20,7 @@ func (g *GraphicsAdapter) Init() error {
 	return nil
 }
 
-func (g *GraphicsAdapter) ShowWindow(windowSettings graphics.WindowSettings) error {
+func (g *GraphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) error {
 	var screenPosX int32
 	var screenPosY int32
 	var resWidth, resHeight int
