@@ -1,4 +1,4 @@
-package game_sdl2
+package sdl2
 
 import (
 	"github.com/GomeBox/gome/adapters"
