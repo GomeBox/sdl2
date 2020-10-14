@@ -5,14 +5,19 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-var _ graphics.Port = (*GraphicsAdapter)(nil)
+var _ graphics.Port = (*graphicsAdapter)(nil)
 
-type GraphicsAdapter struct {
+type GraphicsAdapter interface {
+	graphics.Port
+	Init() error
+}
+
+type graphicsAdapter struct {
 	window   *sdl.Window
 	renderer *sdl.Renderer
 }
 
-func (g *GraphicsAdapter) Init() error {
+func (g *graphicsAdapter) Init() error {
 	err := sdl.Init(sdl.INIT_VIDEO)
 	if err != nil {
 		return err
@@ -20,7 +25,7 @@ func (g *GraphicsAdapter) Init() error {
 	return nil
 }
 
-func (g *GraphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) error {
+func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) error {
 	var screenPosX int32
 	var screenPosY int32
 	var resWidth, resHeight int

@@ -10,14 +10,14 @@ import (
 var _ adapters.System = (*System)(nil)
 
 type System struct {
-	input    *InputAdapter
-	graphics *GraphicsAdapter
+	input    InputAdapter
+	graphics GraphicsAdapter
 }
 
 func NewSystem() *System {
 	s := new(System)
-	s.input = new(InputAdapter)
-	s.graphics = new(GraphicsAdapter)
+	s.input = new(inputAdapter)
+	s.graphics = new(graphicsAdapter)
 
 	return s
 }

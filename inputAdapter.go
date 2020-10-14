@@ -6,13 +6,18 @@ import (
 	"github.com/GomeBox/gome/adapters/input"
 )
 
-var _ input.Port = (*InputAdapter)(nil)
+var _ input.Port = (*inputAdapter)(nil)
 
-type InputAdapter struct {
+type InputAdapter interface {
+	input.Port
+	Init() error
+}
+
+type inputAdapter struct {
 	keyboard *keyboard
 }
 
-func (adapter *InputAdapter) Init() error {
+func (adapter *inputAdapter) Init() error {
 	keyboard, err := newKeyboard()
 	if err != nil {
 		return err
@@ -21,18 +26,18 @@ func (adapter *InputAdapter) Init() error {
 	return nil
 }
 
-func (adapter *InputAdapter) Update() {
+func (adapter *inputAdapter) Update() {
 	//Not necessary as keystate is updated by polling event in System.Update
 }
 
-func (adapter *InputAdapter) Keyboard() input.Keyboard {
+func (adapter *inputAdapter) Keyboard() input.Keyboard {
 	return adapter.keyboard
 }
 
-func (adapter *InputAdapter) ControllerCount() int {
+func (adapter *inputAdapter) ControllerCount() int {
 	return 0
 }
 
-func (adapter *InputAdapter) Controller(number int) (*input.Controller, error) {
+func (adapter *inputAdapter) Controller(number int) (*input.Controller, error) {
 	return nil, errors.New("Controller number " + fmt.Sprint(number) + " not found")
 }
