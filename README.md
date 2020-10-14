@@ -2,5 +2,5 @@
 
 # sdl2 adapter for gome
 
-it is using the great https://github.com/veandco/go-sdl2.
+It is using the great https://github.com/veandco/go-sdl2.  
 SDL2 must be installed. Please refer to the documentation of https://github.com/veandco/go-sdl2
