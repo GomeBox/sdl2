@@ -14,23 +14,6 @@ type GraphicsAdapter interface {
 	Init() error
 }
 
-type textureDrawer struct {
-	sdlTexture    *sdl.Texture
-	renderer      *sdl.Renderer
-	width, height int32
-}
-
-func (drawer textureDrawer) Draw() error {
-	destRect := sdl.Rect{X: 0, Y: 0, H: drawer.height, W: drawer.width}
-	err := drawer.renderer.Copy(drawer.sdlTexture, nil, &destRect)
-	//TODO move this to main loop
-	drawer.renderer.Present()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 type graphicsAdapter struct {
 	window   *sdl.Window
 	renderer *sdl.Renderer
@@ -118,6 +101,9 @@ func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) er
 
 func (g *graphicsAdapter) Load(fileName string) (graphics.TextureDrawer, error) {
 	tex, err := img.LoadTexture(g.renderer, fileName)
+	if err != nil {
+		return nil, err
+	}
 	_, _, w, h, err := tex.Query()
 	if err != nil {
 		return nil, err
