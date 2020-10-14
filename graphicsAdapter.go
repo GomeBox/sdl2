@@ -2,14 +2,33 @@ package sdl2
 
 import (
 	"github.com/GomeBox/gome/adapters/graphics"
+	"github.com/veandco/go-sdl2/img"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-var _ graphics.Port = (*graphicsAdapter)(nil)
-
 type GraphicsAdapter interface {
-	graphics.Port
+	graphics.TextureLoader
+	graphics.WindowAdapter
+	TextureLoader() graphics.TextureLoader
+	WindowAdapter() graphics.WindowAdapter
 	Init() error
+}
+
+type textureDrawer struct {
+	sdlTexture    *sdl.Texture
+	renderer      *sdl.Renderer
+	width, height int32
+}
+
+func (drawer textureDrawer) Draw() error {
+	destRect := sdl.Rect{X: 0, Y: 0, H: drawer.height, W: drawer.width}
+	err := drawer.renderer.Copy(drawer.sdlTexture, nil, &destRect)
+	//TODO move this to main loop
+	drawer.renderer.Present()
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 type graphicsAdapter struct {
@@ -22,7 +41,21 @@ func (g *graphicsAdapter) Init() error {
 	if err != nil {
 		return err
 	}
+
+	err = img.Init(img.INIT_JPG | img.INIT_PNG)
+	if err != nil {
+		return err
+	}
+
 	return nil
+}
+
+func (g *graphicsAdapter) TextureLoader() graphics.TextureLoader {
+	return g
+}
+
+func (g *graphicsAdapter) WindowAdapter() graphics.WindowAdapter {
+	return g
 }
 
 func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) error {
@@ -81,4 +114,14 @@ func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) er
 	window.Show()
 	renderer.Present()
 	return nil
+}
+
+func (g *graphicsAdapter) Load(fileName string) (graphics.TextureDrawer, error) {
+	tex, err := img.LoadTexture(g.renderer, fileName)
+	_, _, w, h, err := tex.Query()
+	if err != nil {
+		return nil, err
+	}
+	drawer := textureDrawer{renderer: g.renderer, sdlTexture: tex, width: w, height: h}
+	return drawer, nil
 }

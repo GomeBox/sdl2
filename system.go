@@ -45,6 +45,6 @@ func (s *System) Input() input.Port {
 	return s.input
 }
 
-func (s *System) Graphics() graphics.Port {
+func (s *System) Graphics() graphics.Adapters {
 	return s.graphics
 }
