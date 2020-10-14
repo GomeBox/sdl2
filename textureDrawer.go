@@ -1,6 +1,9 @@
 package sdl2
 
-import "github.com/veandco/go-sdl2/sdl"
+import (
+	"github.com/GomeBox/gome/primitives"
+	"github.com/veandco/go-sdl2/sdl"
+)
 
 type textureDrawer struct {
 	sdlTexture    *sdl.Texture
@@ -8,13 +11,21 @@ type textureDrawer struct {
 	width, height int32
 }
 
-func (drawer textureDrawer) Draw() error {
-	destRect := sdl.Rect{X: 0, Y: 0, H: drawer.height, W: drawer.width}
-	err := drawer.renderer.Copy(drawer.sdlTexture, nil, &destRect)
+func (drawer textureDrawer) Draw(source, dest *primitives.Rectangle) error {
+	destRect := ConvertRect(dest)
+	srcRect := ConvertRect(source)
+	err := drawer.renderer.Copy(drawer.sdlTexture, srcRect, destRect)
 	//TODO move this to main loop
 	drawer.renderer.Present()
 	if err != nil {
 		return err
 	}
 	return nil
+}
+
+func ConvertRect(rect *primitives.Rectangle) *sdl.Rect {
+	if rect == nil {
+		return nil
+	}
+	return &sdl.Rect{X: int32(rect.X), Y: int32(rect.Y), H: int32(rect.Height), W: int32(rect.Width)}
 }
