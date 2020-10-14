@@ -2,38 +2,23 @@ package sdl2
 
 import (
 	"errors"
+	"fmt"
 	"github.com/GomeBox/gome/adapters/input"
-	"github.com/veandco/go-sdl2/sdl"
 )
 
 var _ input.Port = (*InputAdapter)(nil)
 
 type InputAdapter struct {
-	keyboard keyboard
+	keyboard *keyboard
 }
 
-type keyboard struct {
-	keystate []uint8
-	keymap   map[input.KeyType]uint8
-}
-
-func (keyboard keyboard) KeyPressed(key input.KeyType) (bool, error) {
-	sdlKey, ok := keyboard.keymap[key]
-	if !ok {
-		return false, errors.New("Key " + string(key) + " was not found")
+func (adapter *InputAdapter) Init() error {
+	keyboard, err := newKeyboard()
+	if err != nil {
+		return err
 	}
-	return keyboard.keystate[sdlKey] != 0, nil
-}
-
-func CreateKeyMapping() map[input.KeyType]uint8 {
-	keymap := make(map[input.KeyType]uint8)
-	keymap[input.KeyEsc] = sdl.SCANCODE_ESCAPE
-	return keymap
-}
-
-func (adapter *InputAdapter) Init() {
-	adapter.keyboard.keystate = sdl.GetKeyboardState()
-	adapter.keyboard.keymap = CreateKeyMapping()
+	adapter.keyboard = keyboard
+	return nil
 }
 
 func (adapter *InputAdapter) Update() {
@@ -49,5 +34,5 @@ func (adapter *InputAdapter) ControllerCount() int {
 }
 
 func (adapter *InputAdapter) Controller(number int) (*input.Controller, error) {
-	return nil, nil
+	return nil, errors.New("Controller number " + fmt.Sprint(number) + " not found")
 }

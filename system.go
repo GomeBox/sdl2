@@ -24,7 +24,10 @@ func NewSystem() *System {
 
 func (s *System) Initialize() error {
 	err := s.graphics.Init()
-	s.input.Init()
+	if err != nil {
+		return err
+	}
+	err = s.input.Init()
 	if err != nil {
 		return err
 	}
@@ -34,10 +37,6 @@ func (s *System) Initialize() error {
 func (s *System) Update() error {
 	//Polling all events to keep game running
 	for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
-		switch event.(type) {
-		case *sdl.QuitEvent:
-			return nil
-		}
 	}
 	return nil
 }
