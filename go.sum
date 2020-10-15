@@ -1,5 +1,5 @@
-github.com/GomeBox/gome v0.0.1-alpha.3 h1:msM1800n/Pc3I69bUVMvBFyeFaBk51hOsN/aJg+brzM=
-github.com/GomeBox/gome v0.0.1-alpha.3/go.mod h1:usaBHbkQDWBj043zg5mxDmxFhkA83TemXjAB6SVkW08=
+github.com/GomeBox/gome v0.0.1-alpha.4 h1:ocAQHdKtPb3Q8SCdK4UiKit8kXLVRq0nWU1HrOrEMA4=
+github.com/GomeBox/gome v0.0.1-alpha.4/go.mod h1:usaBHbkQDWBj043zg5mxDmxFhkA83TemXjAB6SVkW08=
 github.com/golang/mock v1.4.4/go.mod h1:l3mdAwkq5BuhzHwde/uurv3sEJeZMXNpwsxVWU71h+4=
 github.com/veandco/go-sdl2 v0.4.4 h1:coOJGftOdvNvGoUIZmm4XD+ZRQF4mg9ZVHmH3/42zFQ=
 github.com/veandco/go-sdl2 v0.4.4/go.mod h1:FB+kTpX9YTE+urhYiClnRzpOXbiWgaU3+5F2AB78DPg=
