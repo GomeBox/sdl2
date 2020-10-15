@@ -25,6 +25,18 @@ func (adapter *GraphicsAdapter) WindowAdapter() graphics.WindowAdapter {
 	return adapter
 }
 
+func (adapter *GraphicsAdapter) ScreenPresenter() graphics.ScreenPresenter {
+	return adapter
+}
+
+func (adapter *GraphicsAdapter) FontLoader() graphics.FontLoader {
+	return new(FontLoader)
+}
+
 func (adapter *GraphicsAdapter) Load(fileName string) (graphics.TextureDrawer, error) {
 	return nil, nil
+}
+
+func (adapter *GraphicsAdapter) Present() error {
+	return nil
 }

@@ -8,15 +8,13 @@ import (
 type textureDrawer struct {
 	sdlTexture    *sdl.Texture
 	renderer      *sdl.Renderer
-	width, height int32
+	width, height int
 }
 
 func (drawer textureDrawer) Draw(source, dest *primitives.Rectangle) error {
 	destRect := ConvertRect(dest)
 	srcRect := ConvertRect(source)
 	err := drawer.renderer.Copy(drawer.sdlTexture, srcRect, destRect)
-	//TODO move this to main loop
-	drawer.renderer.Present()
 	if err != nil {
 		return err
 	}

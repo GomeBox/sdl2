@@ -4,19 +4,24 @@ import (
 	"github.com/GomeBox/gome/adapters/graphics"
 	"github.com/veandco/go-sdl2/img"
 	"github.com/veandco/go-sdl2/sdl"
+	"github.com/veandco/go-sdl2/ttf"
 )
 
 type GraphicsAdapter interface {
 	graphics.TextureLoader
 	graphics.WindowAdapter
+	graphics.ScreenPresenter
 	TextureLoader() graphics.TextureLoader
 	WindowAdapter() graphics.WindowAdapter
+	ScreenPresenter() graphics.ScreenPresenter
+	FontLoader() graphics.FontLoader
 	Init() error
 }
 
 type graphicsAdapter struct {
-	window   *sdl.Window
-	renderer *sdl.Renderer
+	window     *sdl.Window
+	renderer   *sdl.Renderer
+	fontLoader FontLoader
 }
 
 func (g *graphicsAdapter) Init() error {
@@ -30,6 +35,11 @@ func (g *graphicsAdapter) Init() error {
 		return err
 	}
 
+	err = ttf.Init()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -39,6 +49,14 @@ func (g *graphicsAdapter) TextureLoader() graphics.TextureLoader {
 
 func (g *graphicsAdapter) WindowAdapter() graphics.WindowAdapter {
 	return g
+}
+
+func (g *graphicsAdapter) ScreenPresenter() graphics.ScreenPresenter {
+	return g
+}
+
+func (g *graphicsAdapter) FontLoader() graphics.FontLoader {
+	return g.fontLoader
 }
 
 func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) error {
@@ -94,6 +112,9 @@ func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) er
 		return err
 	}
 
+	//TODO: This should not be here
+	g.fontLoader = NewFontLoader(renderer)
+
 	window.Show()
 	renderer.Present()
 	return nil
@@ -108,6 +129,11 @@ func (g *graphicsAdapter) Load(fileName string) (graphics.TextureDrawer, error) 
 	if err != nil {
 		return nil, err
 	}
-	drawer := textureDrawer{renderer: g.renderer, sdlTexture: tex, width: w, height: h}
+	drawer := textureDrawer{renderer: g.renderer, sdlTexture: tex, width: int(w), height: int(h)}
 	return drawer, nil
+}
+
+func (g *graphicsAdapter) Present() error {
+	g.renderer.Present()
+	return nil
 }
