@@ -33,6 +33,8 @@ func (s *System) Initialize() error {
 	if err != nil {
 		return err
 	}
+
+	sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "2")
 	return nil
 }
 

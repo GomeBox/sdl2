@@ -141,3 +141,11 @@ func (g *graphicsAdapter) Present() error {
 	g.renderer.Present()
 	return nil
 }
+
+func (g *graphicsAdapter) Clear() error {
+	err := g.renderer.Clear()
+	if err != nil {
+		return nil
+	}
+	return nil
+}

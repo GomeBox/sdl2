@@ -40,3 +40,7 @@ func (adapter *GraphicsAdapter) Load(fileName string) (graphics.TextureDrawer, e
 func (adapter *GraphicsAdapter) Present() error {
 	return nil
 }
+
+func (adapter *GraphicsAdapter) Clear() error {
+	return nil
+}
