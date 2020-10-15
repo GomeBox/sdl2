@@ -1,4 +1,4 @@
-package sdl2
+package graphics
 
 import (
 	"github.com/GomeBox/gome/adapters/graphics"
@@ -16,6 +16,10 @@ type GraphicsAdapter interface {
 	ScreenPresenter() graphics.ScreenPresenter
 	FontLoader() graphics.FontLoader
 	Init() error
+}
+
+func NewGraphicsAdapter() GraphicsAdapter {
+	return new(graphicsAdapter)
 }
 
 type graphicsAdapter struct {

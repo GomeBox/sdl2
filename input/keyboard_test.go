@@ -1,4 +1,4 @@
-package sdl2
+package input
 
 import (
 	"fmt"

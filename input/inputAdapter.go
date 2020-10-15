@@ -1,4 +1,4 @@
-package sdl2
+package input
 
 import (
 	"errors"
@@ -11,6 +11,10 @@ var _ input.Port = (*inputAdapter)(nil)
 type InputAdapter interface {
 	input.Port
 	Init() error
+}
+
+func NewInputAdapter() InputAdapter {
+	return new(inputAdapter)
 }
 
 type inputAdapter struct {

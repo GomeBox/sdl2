@@ -4,6 +4,8 @@ import (
 	"github.com/GomeBox/gome/adapters"
 	"github.com/GomeBox/gome/adapters/graphics"
 	"github.com/GomeBox/gome/adapters/input"
+	. "github.com/GomeBox/sdl2/graphics"
+	. "github.com/GomeBox/sdl2/input"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -16,8 +18,8 @@ type System struct {
 
 func NewSystem() *System {
 	s := new(System)
-	s.input = new(inputAdapter)
-	s.graphics = new(graphicsAdapter)
+	s.input = NewInputAdapter()
+	s.graphics = NewGraphicsAdapter()
 
 	return s
 }
