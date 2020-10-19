@@ -28,7 +28,7 @@ func TestInitialize(t *testing.T) {
 	system.graphics = graphicsMock
 	err := system.Initialize()
 	if err != nil {
-		t.Errorf("system.Initialize() returned unexpected error '%s'", err.Error())
+		t.Errorf("system.CreateAdapters() returned unexpected error '%s'", err.Error())
 		return
 	}
 	want := 1
