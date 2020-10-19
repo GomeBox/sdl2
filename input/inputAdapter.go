@@ -6,10 +6,10 @@ import (
 	"github.com/GomeBox/gome/adapters/input"
 )
 
-var _ input.Port = (*inputAdapter)(nil)
+var _ input.Adapters = (*inputAdapter)(nil)
 
 type InputAdapter interface {
-	input.Port
+	input.Adapters
 	Init() error
 }
 
@@ -34,7 +34,7 @@ func (adapter *inputAdapter) Update() {
 	//Not necessary as keystate is updated by polling event in System.Update
 }
 
-func (adapter *inputAdapter) Keyboard() input.Keyboard {
+func (adapter *inputAdapter) Keyboard() input.KeyboardAdapter {
 	return adapter.keyboard
 }
 

@@ -14,7 +14,7 @@ func (adapter *InputAdapter) Init() error {
 func (adapter *InputAdapter) Update() {
 }
 
-func (adapter *InputAdapter) Keyboard() input.Keyboard {
+func (adapter *InputAdapter) Keyboard() input.KeyboardAdapter {
 	return nil
 }
 

@@ -45,7 +45,7 @@ func (s *System) Update() error {
 	return nil
 }
 
-func (s *System) Input() input.Port {
+func (s *System) Input() input.Adapters {
 	return s.input
 }
 
