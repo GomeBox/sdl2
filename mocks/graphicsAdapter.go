@@ -2,6 +2,7 @@ package mocks
 
 import (
 	"github.com/GomeBox/gome/adapters/graphics"
+	"github.com/GomeBox/gome/primitives"
 )
 
 type GraphicsAdapter struct {
@@ -31,6 +32,14 @@ func (adapter *GraphicsAdapter) ScreenPresenter() graphics.ScreenPresenter {
 
 func (adapter *GraphicsAdapter) FontLoader() graphics.FontLoader {
 	return new(FontLoader)
+}
+
+func (adapter *GraphicsAdapter) TextureCreator() graphics.TextureCreator {
+	return adapter
+}
+
+func (adapter *GraphicsAdapter) Create(dimensions primitives.Dimensions, color primitives.Color) (graphics.TextureDrawer, error) {
+	return nil, nil
 }
 
 func (adapter *GraphicsAdapter) Load(fileName string) (graphics.TextureDrawer, error) {

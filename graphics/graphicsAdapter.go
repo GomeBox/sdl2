@@ -12,6 +12,7 @@ type GraphicsAdapter interface {
 	graphics.WindowAdapter
 	graphics.ScreenPresenter
 	TextureLoader() graphics.TextureLoader
+	TextureCreator() graphics.TextureCreator
 	WindowAdapter() graphics.WindowAdapter
 	ScreenPresenter() graphics.ScreenPresenter
 	FontLoader() graphics.FontLoader
@@ -122,6 +123,11 @@ func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) er
 	window.Show()
 	renderer.Present()
 	return nil
+}
+
+func (g *graphicsAdapter) TextureCreator() graphics.TextureCreator {
+	creator := textureCreator{renderer: g.renderer}
+	return creator
 }
 
 func (g *graphicsAdapter) Load(fileName string) (graphics.TextureDrawer, error) {

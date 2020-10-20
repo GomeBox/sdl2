@@ -20,7 +20,6 @@ func NewSystem() *System {
 	s := new(System)
 	s.input = NewInputAdapter()
 	s.graphics = NewGraphicsAdapter()
-
 	return s
 }
 
