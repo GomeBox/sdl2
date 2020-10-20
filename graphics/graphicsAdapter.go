@@ -108,7 +108,7 @@ func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) er
 	renderer, err := sdl.CreateRenderer(
 		window,
 		-1,
-		sdl.RENDERER_ACCELERATED)
+		sdl.RENDERER_ACCELERATED|sdl.RENDERER_ACCELERATED)
 	if err != nil {
 		return err
 	}
@@ -117,7 +117,10 @@ func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) er
 	if err != nil {
 		return err
 	}
-
+	err = renderer.SetDrawBlendMode(sdl.BLENDMODE_BLEND)
+	if err != nil {
+		return err
+	}
 	//TODO: This should not be here
 	g.fontLoader = NewFontLoader(renderer)
 
