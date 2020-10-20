@@ -9,9 +9,8 @@ import (
 var _ graphics.TextureDrawer = (*textureDrawer)(nil)
 
 type textureDrawer struct {
-	sdlTexture    *sdl.Texture
-	renderer      *sdl.Renderer
-	width, height int
+	sdlTexture *sdl.Texture
+	renderer   *sdl.Renderer
 }
 
 func (drawer textureDrawer) Draw(source, dest *primitives.Rectangle) error {

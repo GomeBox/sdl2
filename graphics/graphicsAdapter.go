@@ -2,6 +2,7 @@ package graphics
 
 import (
 	"github.com/GomeBox/gome/adapters/graphics"
+	"github.com/GomeBox/gome/primitives"
 	"github.com/veandco/go-sdl2/img"
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/ttf"
@@ -130,7 +131,7 @@ func (g *graphicsAdapter) TextureCreator() graphics.TextureCreator {
 	return creator
 }
 
-func (g *graphicsAdapter) Load(fileName string) (graphics.TextureDrawer, error) {
+func (g *graphicsAdapter) Load(fileName string) (graphics.Texture, error) {
 	tex, err := img.LoadTexture(g.renderer, fileName)
 	if err != nil {
 		return nil, err
@@ -139,8 +140,11 @@ func (g *graphicsAdapter) Load(fileName string) (graphics.TextureDrawer, error) 
 	if err != nil {
 		return nil, err
 	}
-	drawer := textureDrawer{renderer: g.renderer, sdlTexture: tex, width: int(w), height: int(h)}
-	return drawer, nil
+	drawer := textureDrawer{renderer: g.renderer, sdlTexture: tex}
+	return newTexture(drawer, primitives.Dimensions{
+		Width:  int(w),
+		Height: int(h),
+	}), nil
 }
 
 func (g *graphicsAdapter) Present() error {

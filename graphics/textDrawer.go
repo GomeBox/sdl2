@@ -8,19 +8,19 @@ import (
 var _ graphics.TextDrawer = (*TextDrawer)(nil)
 
 type TextDrawer struct {
-	textureDrawer textureDrawer
+	texture *texture
 }
 
-func NewTextDrawer(textureDrawer textureDrawer) *TextDrawer {
+func NewTextDrawer(texture *texture) *TextDrawer {
 	drawer := new(TextDrawer)
-	drawer.textureDrawer = textureDrawer
+	drawer.texture = texture
 	return drawer
 }
 
 func (drawer *TextDrawer) Draw(position *primitives.Point) error {
 	destRect := &primitives.Rectangle{
 		Point:      primitives.Point{X: position.X, Y: position.Y},
-		Dimensions: primitives.Dimensions{Height: drawer.textureDrawer.height, Width: drawer.textureDrawer.width}}
+		Dimensions: primitives.Dimensions{Height: drawer.texture.dimensions.Height, Width: drawer.texture.dimensions.Width}}
 	return drawer.draw(destRect)
 }
 
@@ -31,7 +31,7 @@ func (drawer *TextDrawer) DrawScaled(destRect *primitives.Rectangle) error {
 func (drawer *TextDrawer) DrawF(position *primitives.PointF) error {
 	destRect := &primitives.RectangleF{
 		PointF:      primitives.PointF{X: position.X, Y: position.Y},
-		DimensionsF: primitives.DimensionsF{Height: float32(drawer.textureDrawer.height), Width: float32(drawer.textureDrawer.width)}}
+		DimensionsF: primitives.DimensionsF{Height: float32(drawer.texture.dimensions.Height), Width: float32(drawer.texture.dimensions.Width)}}
 	return drawer.drawF(destRect)
 }
 
@@ -40,7 +40,7 @@ func (drawer *TextDrawer) DrawScaledF(destRect *primitives.RectangleF) error {
 }
 
 func (drawer *TextDrawer) draw(destRect *primitives.Rectangle) error {
-	err := drawer.textureDrawer.Draw(nil, destRect)
+	err := drawer.texture.Draw(nil, destRect)
 	if err != nil {
 		return err
 	}
@@ -48,7 +48,7 @@ func (drawer *TextDrawer) draw(destRect *primitives.Rectangle) error {
 }
 
 func (drawer *TextDrawer) drawF(destRect *primitives.RectangleF) error {
-	err := drawer.textureDrawer.DrawF(nil, destRect)
+	err := drawer.texture.DrawF(nil, destRect)
 	if err != nil {
 		return err
 	}

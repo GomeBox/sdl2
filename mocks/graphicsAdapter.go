@@ -38,11 +38,11 @@ func (adapter *GraphicsAdapter) TextureCreator() graphics.TextureCreator {
 	return adapter
 }
 
-func (adapter *GraphicsAdapter) Create(dimensions primitives.Dimensions, color primitives.Color) (graphics.TextureDrawer, error) {
+func (adapter *GraphicsAdapter) Create(dimensions *primitives.Dimensions, color *primitives.Color) (graphics.Texture, error) {
 	return nil, nil
 }
 
-func (adapter *GraphicsAdapter) Load(fileName string) (graphics.TextureDrawer, error) {
+func (adapter *GraphicsAdapter) Load(fileName string) (graphics.Texture, error) {
 	return nil, nil
 }
 

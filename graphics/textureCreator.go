@@ -12,7 +12,7 @@ type textureCreator struct {
 	renderer *sdl.Renderer
 }
 
-func (creator textureCreator) Create(dimensions primitives.Dimensions, color primitives.Color) (graphics.TextureDrawer, error) {
+func (creator textureCreator) Create(dimensions *primitives.Dimensions, color *primitives.Color) (graphics.Texture, error) {
 	texture, err := creator.renderer.CreateTexture(sdl.PIXELFORMAT_RGBA8888, sdl.TEXTUREACCESS_STATIC, int32(dimensions.Width), int32(dimensions.Height))
 	if err != nil {
 		return nil, err
@@ -32,8 +32,6 @@ func (creator textureCreator) Create(dimensions primitives.Dimensions, color pri
 	drawer := textureDrawer{
 		sdlTexture: texture,
 		renderer:   creator.renderer,
-		width:      dimensions.Width,
-		height:     dimensions.Height,
 	}
-	return drawer, nil
+	return newTexture(drawer, *dimensions), nil
 }

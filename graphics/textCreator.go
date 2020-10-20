@@ -34,10 +34,11 @@ func (creator *TextCreator) Create(text string, color primitives.Color) (graphic
 	textureDrawer := textureDrawer{
 		sdlTexture: texture,
 		renderer:   creator.renderer,
-		width:      int(w),
-		height:     int(h),
 	}
 
-	drawer := NewTextDrawer(textureDrawer)
+	drawer := NewTextDrawer(newTexture(textureDrawer, primitives.Dimensions{
+		Width:  int(w),
+		Height: int(h),
+	}))
 	return drawer, nil
 }
