@@ -1,6 +1,7 @@
 package graphics
 
 import (
+	"fmt"
 	"github.com/GomeBox/gome/adapters/graphics"
 	"github.com/GomeBox/gome/primitives"
 	"github.com/veandco/go-sdl2/img"
@@ -79,7 +80,7 @@ func (g *graphicsAdapter) OpenWindow(windowSettings *graphics.WindowSettings) er
 	}
 	resWidth = int(displayMode.W)
 	resHeight = int(displayMode.H)
-
+	fmt.Println("Fullscreen: ", windowSettings.Fullscreen)
 	if windowSettings.Fullscreen {
 		screenPosX = 0
 		screenPosY = 0
