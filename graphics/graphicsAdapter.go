@@ -28,6 +28,7 @@ type graphicsAdapter struct {
 	window     *sdl.Window
 	renderer   *sdl.Renderer
 	fontLoader FontLoader
+	resolution primitives.Dimensions
 }
 
 func (g *graphicsAdapter) Init() error {
@@ -80,6 +81,17 @@ func (g *graphicsAdapter) OpenWindow(windowSettings *graphics.WindowSettings) er
 	resWidth = int(displayMode.W)
 	resHeight = int(displayMode.H)
 
+	g.resolution = primitives.Dimensions{
+		Width:  resWidth,
+		Height: resHeight,
+	}
+	if windowSettings.Resolution.Width != 0 {
+		g.resolution.Width = windowSettings.Resolution.Width
+	}
+	if windowSettings.Resolution.Height != 0 {
+		g.resolution.Height = windowSettings.Resolution.Height
+	}
+
 	if windowSettings.Fullscreen {
 		screenPosX = 0
 		screenPosY = 0
@@ -113,7 +125,7 @@ func (g *graphicsAdapter) OpenWindow(windowSettings *graphics.WindowSettings) er
 		return err
 	}
 	g.renderer = renderer
-	err = renderer.SetLogicalSize(int32(windowSettings.Resolution.Width), int32(windowSettings.Resolution.Height))
+	err = renderer.SetLogicalSize(int32(g.resolution.Width), int32(g.resolution.Height))
 	if err != nil {
 		return err
 	}
@@ -137,11 +149,8 @@ func (g *graphicsAdapter) Size() primitives.Dimensions {
 	if g.window == nil {
 		return primitives.Dimensions{}
 	}
-	w, h := g.window.GetSize()
-	return primitives.Dimensions{
-		Width:  int(w),
-		Height: int(h),
-	}
+
+	return g.resolution
 }
 
 func (g *graphicsAdapter) TextureCreator() graphics.TextureCreator {
