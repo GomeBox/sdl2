@@ -65,7 +65,7 @@ func (g *graphicsAdapter) FontLoader() graphics.FontLoader {
 	return g.fontLoader
 }
 
-func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) error {
+func (g *graphicsAdapter) OpenWindow(windowSettings *graphics.WindowSettings) error {
 	var screenPosX int32
 	var screenPosY int32
 	var resWidth, resHeight int
@@ -127,6 +127,21 @@ func (g *graphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) er
 	window.Show()
 	renderer.Present()
 	return nil
+}
+
+func (g *graphicsAdapter) IsOpen() bool {
+	return g.window != nil
+}
+
+func (g *graphicsAdapter) Size() primitives.Dimensions {
+	if g.window == nil {
+		return primitives.Dimensions{}
+	}
+	w, h := g.window.GetSize()
+	return primitives.Dimensions{
+		Width:  int(w),
+		Height: int(h),
+	}
 }
 
 func (g *graphicsAdapter) TextureCreator() graphics.TextureCreator {

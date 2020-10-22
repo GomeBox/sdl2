@@ -14,8 +14,16 @@ func (adapter *GraphicsAdapter) Init() error {
 	return nil
 }
 
-func (adapter *GraphicsAdapter) ShowWindow(windowSettings *graphics.WindowSettings) error {
+func (adapter *GraphicsAdapter) OpenWindow(windowSettings *graphics.WindowSettings) error {
 	return nil
+}
+
+func (adapter *GraphicsAdapter) Size() primitives.Dimensions {
+	return primitives.Dimensions{}
+}
+
+func (adapter *GraphicsAdapter) IsOpen() bool {
+	return false
 }
 
 func (adapter *GraphicsAdapter) TextureLoader() graphics.TextureLoader {
