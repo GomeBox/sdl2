@@ -18,14 +18,19 @@ func TestNewSystem(t *testing.T) {
 	if system.graphics == nil {
 		t.Errorf("system.graphics is nil")
 	}
+	if system.audio == nil {
+		t.Errorf("system.audio is nil")
+	}
 }
 
 func TestInitialize(t *testing.T) {
 	system := NewSystem()
 	inputMock := new(mocks.InputAdapter)
 	graphicsMock := new(mocks.GraphicsAdapter)
+	audioMock := new(mocks.AudioAdapter)
 	system.input = inputMock
 	system.graphics = graphicsMock
+	system.audio = audioMock
 	err := system.Initialize()
 	if err != nil {
 		t.Errorf("system.CreateAdapters() returned unexpected error '%s'", err.Error())
@@ -40,6 +45,11 @@ func TestInitialize(t *testing.T) {
 	got = graphicsMock.InitCnt
 	if got != want {
 		t.Errorf("graphics.Init() was not called correct number of times. Got: %d,  want: %d", got, want)
+		return
+	}
+	got = audioMock.InitCnt
+	if got != want {
+		t.Errorf("audio.Init() was not called correct number of times. Got: %d,  want: %d", got, want)
 		return
 	}
 }

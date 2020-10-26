@@ -39,6 +39,10 @@ func (drawer *TextDrawer) DrawScaledF(destRect *primitives.RectangleF) error {
 	return drawer.drawF(destRect)
 }
 
+func (drawer *TextDrawer) Dimensions() primitives.Dimensions {
+	return drawer.texture.dimensions
+}
+
 func (drawer *TextDrawer) draw(destRect *primitives.Rectangle) error {
 	err := drawer.texture.Draw(nil, destRect)
 	if err != nil {
